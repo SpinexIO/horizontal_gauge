@@ -244,7 +244,7 @@ All dimensions automatically adapt to screen size:
 ## 🔧 Examples Gallery
 
 ### Standard Usage
-![Standard Gauge](docs/standart.png)
+![Standard Gauge](github/standart.png)
 
 ```dart
 HorizontalGauge(
@@ -263,7 +263,7 @@ HorizontalGauge(
 ```
 
 ### Colorful Theme
-![Colorful Theme](docs/colorful.png)
+![Colorful Theme](github/colorful.png)
 
 ```dart
 HorizontalGauge(
@@ -299,7 +299,7 @@ HorizontalGauge(
 ```
 
 ### Custom Builders
-![Custom Builders](docs/custom.png)
+![Custom Builders](github/custom.png)
 
 ```dart
 // Custom Title Builder
