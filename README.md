@@ -22,7 +22,7 @@ Add this to your package's `pubspec.yaml` file:
 
 ```yaml
 dependencies:
-  horizontal_gauge: ^1.0.0
+  horizontal_gauge: ^1.0.1
 ```
 
 Then run:
@@ -244,7 +244,7 @@ All dimensions automatically adapt to screen size:
 ## 🔧 Examples Gallery
 
 ### Standard Usage
-![Standard Gauge](github/standart.png)
+![Standard Gauge](https://raw.githubusercontent.com/SpinexIO/horizontal_gauge/refs/heads/main/github/standart.png)
 
 ```dart
 HorizontalGauge(
@@ -263,7 +263,7 @@ HorizontalGauge(
 ```
 
 ### Colorful Theme
-![Colorful Theme](github/colorful.png)
+![Colorful Theme](https://raw.githubusercontent.com/SpinexIO/horizontal_gauge/refs/heads/main/github/colorful.png)
 
 ```dart
 HorizontalGauge(
@@ -299,7 +299,7 @@ HorizontalGauge(
 ```
 
 ### Custom Builders
-![Custom Builders](github/custom.png)
+![Custom Builders](https://raw.githubusercontent.com/SpinexIO/horizontal_gauge/refs/heads/main/github/custom.png)
 
 ```dart
 // Custom Title Builder

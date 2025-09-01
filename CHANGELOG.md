@@ -1,5 +1,10 @@
 # Changelog
 
+## [1.0.1] - 2024-06-09
+
+### Updates
+- Update README.
+
 ## [1.0.0] - 2024-12-19
 
 ### Added
