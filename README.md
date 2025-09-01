@@ -497,14 +497,7 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 - 📖 [Documentation](https://github.com/SpinexIO/horizontal_gauge/wiki)
 - 🐛 [Issue Tracker](https://github.com/SpinexIO/horizontal_gauge/issues)
-- 💬 [Discussions](https://github.com/SpinexIO/horizontal_gauge/discussions)
 - ⭐ [GitHub Repository](https://github.com/SpinexIO/horizontal_gauge)
-
-## 🏆 Showcase
-
-Built something awesome with Horizontal Gauge? We'd love to see it! Share your creations in our [showcase discussion](https://github.com/SpinexIO/horizontal_gauge/discussions/categories/showcase).
-
----
 
 <div align="center">
 
