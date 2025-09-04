@@ -294,10 +294,9 @@ class _CircularGaugeState extends State<CircularGauge> with TickerProviderStateM
                       color: widget.theme?.titleColor ?? Colors.white,
                     ),
               ),
-          const SizedBox(height: 16),
           SizedBox(
             width: effectiveSize,
-            height: effectiveSize * 0.7,
+            height: effectiveSize * 1,
             child: AnimatedBuilder(
               animation: _animation,
               builder: (context, child) {
@@ -318,7 +317,6 @@ class _CircularGaugeState extends State<CircularGauge> with TickerProviderStateM
               },
             ),
           ),
-          const SizedBox(height: 16),
           widget.valueBuilder?.call(context, _value, widget.unit) ??
               RichText(
                 textAlign: TextAlign.center,
@@ -374,7 +372,7 @@ class _CircularGaugePainter extends CustomPainter {
 
   @override
   void paint(Canvas canvas, Size size) {
-    final center = Offset(size.width / 2, size.height / 2);
+    final center = Offset(size.width / 2, size.height / 1.3);
     final radius = math.min(size.width, size.height) * 0.4;
     if (showProgressArc) {
       _drawArcBackground(canvas, center, radius);

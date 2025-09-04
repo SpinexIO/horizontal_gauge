@@ -1,5 +1,10 @@
 # Changelog
 
+## [2.0.2]
+
+- Bug Fixed
+
+
 ## [2.0.1]
 
 - Readme Update

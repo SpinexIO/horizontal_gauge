@@ -1,6 +1,6 @@
 name: horizontal_gauge
 description: A customizable horizontal gauge widget for Flutter with smooth animations, interactive controls, and rich theming options.
-version: 2.0.1
+version: 2.0.2
 homepage: https://github.com/SpinexIO/horizontal_gauge
 repository: https://github.com/SpinexIO/horizontal_gauge
 issue_tracker: https://github.com/SpinexIO/horizontal_gauge/issues

@@ -37,7 +37,7 @@ Add this to your package's `pubspec.yaml` file:
 
 ```yaml
 dependencies:
-  horizontal_gauge: ^2.0.1
+  horizontal_gauge: ^2.0.2
 ```
 
 Import the package:
