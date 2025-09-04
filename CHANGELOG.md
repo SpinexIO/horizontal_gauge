@@ -1,5 +1,9 @@
 # Changelog
 
+## [2.0.1]
+
+- Readme Update
+
 ## [2.0.0]
 
 ### Added
