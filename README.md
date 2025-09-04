@@ -370,9 +370,9 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 ## 🔗 Links
 
 - [pub.dev package](https://pub.dev/packages/horizontal_gauge)
-- [GitHub repository](https://github.com/yourusername/horizontal_gauge)
+- [GitHub repository](https://github.com/SpinexIO/horizontal_gauge)
 - [API documentation](https://pub.dev/documentation/horizontal_gauge/latest/)
-- [Example app](https://github.com/yourusername/horizontal_gauge/tree/main/example)
+- [Example app](https://github.com/SpinexIO/horizontal_gauge/tree/main/example)
 
 ---
 Made with ❤️ by [SpinexIO](https://spinex.io) for the Flutter Community.
