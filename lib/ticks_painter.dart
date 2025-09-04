@@ -31,8 +31,10 @@ class TicksPainter extends CustomPainter {
 
     final gaugeTheme = theme ?? const HorizontalGaugeTheme();
 
-    final tickColor = gaugeTheme.tickColor ?? Colors.white.withValues(alpha: 0.18);
-    final majorTickColor = gaugeTheme.majorTickColor ?? Colors.white.withValues(alpha: 0.28);
+    final tickColor =
+        gaugeTheme.tickColor ?? Colors.white.withValues(alpha: 0.18);
+    final majorTickColor =
+        gaugeTheme.majorTickColor ?? Colors.white.withValues(alpha: 0.28);
 
     final Paint tickPaint = Paint()..color = tickColor;
     final Paint majorPaint = Paint()..color = majorTickColor;
@@ -40,15 +42,22 @@ class TicksPainter extends CustomPainter {
     final int totalTicks = customTickCount ?? 41;
     final double spacing = size.width / (totalTicks - 1);
 
-    final minorTickHeight = gaugeTheme.tickHeight ?? (screenSize.height * 0.01).clamp(6.0, 10.0);
-    final majorTickHeight = gaugeTheme.majorTickHeight ?? (screenSize.height * 0.02).clamp(12.0, 20.0);
+    final minorTickHeight =
+        gaugeTheme.tickHeight ?? (screenSize.height * 0.01).clamp(6.0, 10.0);
+    final majorTickHeight =
+        gaugeTheme.majorTickHeight ??
+        (screenSize.height * 0.02).clamp(12.0, 20.0);
 
     for (int i = 0; i < totalTicks; i++) {
       final x = i * spacing;
       final bool isMajor = i % 5 == 0;
       final double h = isMajor ? majorTickHeight : minorTickHeight;
       final p = isMajor ? majorPaint : tickPaint;
-      canvas.drawLine(Offset(x, size.height / 2 - h / 2), Offset(x, size.height / 2 + h / 2), p);
+      canvas.drawLine(
+        Offset(x, size.height / 2 - h / 2),
+        Offset(x, size.height / 2 + h / 2),
+        p,
+      );
     }
 
     if (!showLabels) return;
@@ -62,7 +71,13 @@ class TicksPainter extends CustomPainter {
     final leftLabel = _formatLabel(leftValue);
     textPainter.text = TextSpan(
       text: leftLabel,
-      style: gaugeTheme.labelStyle ?? TextStyle(fontSize: fontSize, color: labelColor, fontWeight: FontWeight.w500),
+      style:
+          gaugeTheme.labelStyle ??
+          TextStyle(
+            fontSize: fontSize,
+            color: labelColor,
+            fontWeight: FontWeight.w500,
+          ),
     );
     textPainter.layout();
     textPainter.paint(canvas, Offset(0, size.height / 2 + labelOffset));
@@ -71,7 +86,13 @@ class TicksPainter extends CustomPainter {
     final middleLabel = _formatLabel(middleValue);
     textPainter.text = TextSpan(
       text: middleLabel,
-      style: gaugeTheme.labelStyle ?? TextStyle(fontSize: fontSize, color: labelColor, fontWeight: FontWeight.w500),
+      style:
+          gaugeTheme.labelStyle ??
+          TextStyle(
+            fontSize: fontSize,
+            color: labelColor,
+            fontWeight: FontWeight.w500,
+          ),
     );
     textPainter.layout();
     final middleX = (size.width / 2) - (textPainter.width / 2);
@@ -81,7 +102,13 @@ class TicksPainter extends CustomPainter {
     final rightLabel = _formatLabel(rightValue);
     textPainter.text = TextSpan(
       text: rightLabel,
-      style: gaugeTheme.labelStyle ?? TextStyle(fontSize: fontSize, color: labelColor, fontWeight: FontWeight.w500),
+      style:
+          gaugeTheme.labelStyle ??
+          TextStyle(
+            fontSize: fontSize,
+            color: labelColor,
+            fontWeight: FontWeight.w500,
+          ),
     );
     textPainter.layout();
     final rightX = size.width - textPainter.width;

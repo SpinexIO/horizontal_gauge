@@ -67,14 +67,16 @@ class ScaleWidgetState extends State<ScaleWidget> {
     final potentialNewValue = _localValue + dx * perPixel;
     final clampedValue = potentialNewValue.clamp(widget.min, widget.max);
 
-    bool atBoundary = (clampedValue == widget.min || clampedValue == widget.max);
+    bool atBoundary =
+        (clampedValue == widget.min || clampedValue == widget.max);
 
     if (atBoundary) {
       if (_boundaryReachedTime == null) {
         _boundaryReachedTime = DateTime.now();
       } else {
         final currentTime = DateTime.now();
-        if (currentTime.difference(_boundaryReachedTime!).inMilliseconds >= 500) {
+        if (currentTime.difference(_boundaryReachedTime!).inMilliseconds >=
+            500) {
           _isDragging = false;
           _boundaryReachedTime = null;
           return;
@@ -111,11 +113,15 @@ class ScaleWidgetState extends State<ScaleWidget> {
     final scaleHeight = (screenSize.height * 0.1).clamp(60.0, 100.0);
     final gaugeTheme = widget.theme ?? const HorizontalGaugeTheme();
 
-    final indicatorWidth = gaugeTheme.indicatorWidth ?? (screenSize.width * 0.01).clamp(3.0, 6.0);
-    final indicatorHeight = gaugeTheme.indicatorHeight ?? (screenSize.height * 0.055).clamp(35.0, 50.0);
+    final indicatorWidth =
+        gaugeTheme.indicatorWidth ?? (screenSize.width * 0.01).clamp(3.0, 6.0);
+    final indicatorHeight =
+        gaugeTheme.indicatorHeight ??
+        (screenSize.height * 0.055).clamp(35.0, 50.0);
 
     final indicatorColor = gaugeTheme.indicatorColor ?? widget.color;
-    final shadowColor = gaugeTheme.indicatorShadowColor ?? widget.color.withValues(alpha:0.35);
+    final shadowColor =
+        gaugeTheme.indicatorShadowColor ?? widget.color.withValues(alpha: 0.35);
 
     return LayoutBuilder(
       builder: (context, constraints) {
@@ -149,11 +155,20 @@ class ScaleWidgetState extends State<ScaleWidget> {
                 child: IgnorePointer(
                   child: Builder(
                     builder: (context) {
-                      final fraction = ((_localValue - widget.min) / (widget.max - widget.min)).clamp(0.0, 1.0);
+                      final fraction =
+                          ((_localValue - widget.min) /
+                                  (widget.max - widget.min))
+                              .clamp(0.0, 1.0);
                       if (widget.indicatorBuilder != null) {
                         return Align(
                           alignment: Alignment(-1.0 + 2.0 * fraction, 0.0),
-                          child: widget.indicatorBuilder!(context, _localValue, widget.min, widget.max, widget.color),
+                          child: widget.indicatorBuilder!(
+                            context,
+                            _localValue,
+                            widget.min,
+                            widget.max,
+                            widget.color,
+                          ),
                         );
                       }
                       return Align(
@@ -162,15 +177,20 @@ class ScaleWidgetState extends State<ScaleWidget> {
                           width: indicatorWidth,
                           height: indicatorHeight,
                           decoration: BoxDecoration(
-                            color: gaugeTheme.indicatorGradient == null ? indicatorColor : null,
+                            color: gaugeTheme.indicatorGradient == null
+                                ? indicatorColor
+                                : null,
                             gradient: gaugeTheme.indicatorGradient,
-                            borderRadius: gaugeTheme.indicatorBorderRadius ?? BorderRadius.circular(indicatorWidth / 2),
+                            borderRadius:
+                                gaugeTheme.indicatorBorderRadius ??
+                                BorderRadius.circular(indicatorWidth / 2),
                             boxShadow:
                                 gaugeTheme.indicatorShadows ??
                                 [
                                   BoxShadow(
                                     color: shadowColor,
-                                    blurRadius: (screenSize.width * 0.015).clamp(4.0, 8.0),
+                                    blurRadius: (screenSize.width * 0.015)
+                                        .clamp(4.0, 8.0),
                                     offset: const Offset(0, 1),
                                   ),
                                 ],

@@ -154,14 +154,23 @@ class CircularGaugeTheme {
 }
 
 ///[CircularTitleBuilder] is a function that builds the title widget.
-typedef CircularTitleBuilder = Widget Function(BuildContext context, String title, double value);
+typedef CircularTitleBuilder =
+    Widget Function(BuildContext context, String title, double value);
 
 ///[CircularValueBuilder] is a function that builds the value widget.
-typedef CircularValueBuilder = Widget Function(BuildContext context, double value, String unit);
+typedef CircularValueBuilder =
+    Widget Function(BuildContext context, double value, String unit);
 
 ///[CircularNeedleBuilder] is a function that builds the needle widget.
 typedef CircularNeedleBuilder =
-    Widget Function(Canvas canvas, Size size, double value, double min, double max, Color color);
+    Widget Function(
+      Canvas canvas,
+      Size size,
+      double value,
+      double min,
+      double max,
+      Color color,
+    );
 
 ///[CircularGauge] is a widget that displays a circular gauge.
 class CircularGauge extends StatefulWidget {
@@ -234,7 +243,8 @@ class CircularGauge extends StatefulWidget {
   State<CircularGauge> createState() => _CircularGaugeState();
 }
 
-class _CircularGaugeState extends State<CircularGauge> with TickerProviderStateMixin {
+class _CircularGaugeState extends State<CircularGauge>
+    with TickerProviderStateMixin {
   late double _value;
   late AnimationController _animationController;
   late Animation<double> _animation;
@@ -242,11 +252,13 @@ class _CircularGaugeState extends State<CircularGauge> with TickerProviderStateM
   @override
   void initState() {
     _value = widget.value.clamp(widget.min, widget.max);
-    _animationController = AnimationController(duration: const Duration(milliseconds: 800), vsync: this);
-    _animation = Tween<double>(
-      begin: widget.min,
-      end: _value,
-    ).animate(CurvedAnimation(parent: _animationController, curve: Curves.easeInOut));
+    _animationController = AnimationController(
+      duration: const Duration(milliseconds: 800),
+      vsync: this,
+    );
+    _animation = Tween<double>(begin: widget.min, end: _value).animate(
+      CurvedAnimation(parent: _animationController, curve: Curves.easeInOut),
+    );
     _animationController.forward();
     super.initState();
   }
@@ -256,10 +268,9 @@ class _CircularGaugeState extends State<CircularGauge> with TickerProviderStateM
     super.didUpdateWidget(oldWidget);
     final newValue = widget.value.clamp(widget.min, widget.max);
     if (newValue != _value) {
-      _animation = Tween<double>(
-        begin: _value,
-        end: newValue,
-      ).animate(CurvedAnimation(parent: _animationController, curve: Curves.easeInOut));
+      _animation = Tween<double>(begin: _value, end: newValue).animate(
+        CurvedAnimation(parent: _animationController, curve: Curves.easeInOut),
+      );
       _value = newValue;
       _animationController.reset();
       _animationController.forward();
@@ -275,7 +286,8 @@ class _CircularGaugeState extends State<CircularGauge> with TickerProviderStateM
   @override
   Widget build(BuildContext context) {
     final screenSize = MediaQuery.of(context).size;
-    final effectiveSize = widget.size ?? math.min(screenSize.width * 0.8, 300.0);
+    final effectiveSize =
+        widget.size ?? math.min(screenSize.width * 0.8, 300.0);
     final effectivePadding = widget.padding ?? const EdgeInsets.all(16.0);
 
     return Container(
@@ -336,7 +348,10 @@ class _CircularGaugeState extends State<CircularGauge> with TickerProviderStateM
                       text: ' ${widget.unit}',
                       style:
                           widget.theme?.unitStyle ??
-                          TextStyle(fontSize: 18, color: widget.theme?.unitColor ?? Colors.white70),
+                          TextStyle(
+                            fontSize: 18,
+                            color: widget.theme?.unitColor ?? Colors.white70,
+                          ),
                     ),
                   ],
                 ),
@@ -395,7 +410,13 @@ class _CircularGaugePainter extends CustomPainter {
       ..strokeWidth = theme.arcStrokeWidth ?? 8.0
       ..strokeCap = StrokeCap.round;
 
-    canvas.drawArc(Rect.fromCircle(center: center, radius: radius), math.pi, math.pi, false, paint);
+    canvas.drawArc(
+      Rect.fromCircle(center: center, radius: radius),
+      math.pi,
+      math.pi,
+      false,
+      paint,
+    );
   }
 
   void _drawProgressArc(Canvas canvas, Offset center, double radius) {
@@ -408,12 +429,20 @@ class _CircularGaugePainter extends CustomPainter {
       ..strokeCap = StrokeCap.round;
 
     if (theme.progressGradient != null) {
-      paint.shader = theme.progressGradient!.createShader(Rect.fromCircle(center: center, radius: radius));
+      paint.shader = theme.progressGradient!.createShader(
+        Rect.fromCircle(center: center, radius: radius),
+      );
     } else {
       paint.color = theme.progressColor ?? color;
     }
 
-    canvas.drawArc(Rect.fromCircle(center: center, radius: radius), math.pi, sweepAngle, false, paint);
+    canvas.drawArc(
+      Rect.fromCircle(center: center, radius: radius),
+      math.pi,
+      sweepAngle,
+      false,
+      paint,
+    );
   }
 
   void _drawTicks(Canvas canvas, Offset center, double radius) {
@@ -452,22 +481,34 @@ class _CircularGaugePainter extends CustomPainter {
       text: _formatValue(min),
       style:
           theme.labelStyle ??
-          TextStyle(fontSize: 14, color: theme.labelColor ?? Colors.white70, fontWeight: FontWeight.w500),
+          TextStyle(
+            fontSize: 14,
+            color: theme.labelColor ?? Colors.white70,
+            fontWeight: FontWeight.w500,
+          ),
     );
     textPainter.layout();
-    final leftX = center.dx + labelRadius * math.cos(math.pi) - textPainter.width / 2;
-    final leftY = center.dy + labelRadius * math.sin(math.pi) - textPainter.height / 2;
+    final leftX =
+        center.dx + labelRadius * math.cos(math.pi) - textPainter.width / 2;
+    final leftY =
+        center.dy + labelRadius * math.sin(math.pi) - textPainter.height / 2;
     textPainter.paint(canvas, Offset(leftX, leftY));
 
     textPainter.text = TextSpan(
       text: _formatValue(max),
       style:
           theme.labelStyle ??
-          TextStyle(fontSize: 14, color: theme.labelColor ?? Colors.white70, fontWeight: FontWeight.w500),
+          TextStyle(
+            fontSize: 14,
+            color: theme.labelColor ?? Colors.white70,
+            fontWeight: FontWeight.w500,
+          ),
     );
     textPainter.layout();
-    final rightX = center.dx + labelRadius * math.cos(0) - textPainter.width / 2;
-    final rightY = center.dy + labelRadius * math.sin(0) - textPainter.height / 2;
+    final rightX =
+        center.dx + labelRadius * math.cos(0) - textPainter.width / 2;
+    final rightY =
+        center.dy + labelRadius * math.sin(0) - textPainter.height / 2;
     textPainter.paint(canvas, Offset(rightX, rightY));
   }
 
@@ -489,7 +530,9 @@ class _CircularGaugePainter extends CustomPainter {
       ..strokeCap = StrokeCap.round;
 
     if (theme.needleGradient != null) {
-      needlePaint.shader = theme.needleGradient!.createShader(Rect.fromPoints(center, Offset(needleEndX, needleEndY)));
+      needlePaint.shader = theme.needleGradient!.createShader(
+        Rect.fromPoints(center, Offset(needleEndX, needleEndY)),
+      );
     } else {
       needlePaint.color = theme.needleColor ?? color;
     }

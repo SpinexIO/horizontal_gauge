@@ -139,7 +139,8 @@ class HorizontalGaugeTheme {
       indicatorHeight: indicatorHeight ?? this.indicatorHeight,
       tickHeight: tickHeight ?? this.tickHeight,
       majorTickHeight: majorTickHeight ?? this.majorTickHeight,
-      indicatorBorderRadius: indicatorBorderRadius ?? this.indicatorBorderRadius,
+      indicatorBorderRadius:
+          indicatorBorderRadius ?? this.indicatorBorderRadius,
       indicatorShadows: indicatorShadows ?? this.indicatorShadows,
       backgroundGradient: backgroundGradient ?? this.backgroundGradient,
       indicatorGradient: indicatorGradient ?? this.indicatorGradient,
@@ -148,16 +149,33 @@ class HorizontalGaugeTheme {
 }
 
 ///[TitleBuilder] is a function that builds the title widget.
-typedef TitleBuilder = Widget Function(BuildContext context, String title, double value);
+typedef TitleBuilder =
+    Widget Function(BuildContext context, String title, double value);
 
 ///[ValueBuilder] is a function that builds the value widget.
-typedef ValueBuilder = Widget Function(BuildContext context, double value, String unit);
+typedef ValueBuilder =
+    Widget Function(BuildContext context, double value, String unit);
 
 ///[IndicatorBuilder] is a function that builds the indicator widget.
-typedef IndicatorBuilder = Widget Function(BuildContext context, double value, double min, double max, Color color);
+typedef IndicatorBuilder =
+    Widget Function(
+      BuildContext context,
+      double value,
+      double min,
+      double max,
+      Color color,
+    );
 
 ///[TickBuilder] is a function that builds the tick widget.
-typedef TickBuilder = Widget Function(Canvas canvas, Size size, double min, double max, double value, Size screenSize);
+typedef TickBuilder =
+    Widget Function(
+      Canvas canvas,
+      Size size,
+      double min,
+      double max,
+      double value,
+      Size screenSize,
+    );
 
 ///[HorizontalGauge] is a widget that displays a horizontal gauge.
 class HorizontalGauge extends StatefulWidget {
@@ -267,18 +285,27 @@ class _HorizontalGaugeState extends State<HorizontalGauge> {
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
     final screenSize = MediaQuery.of(context).size;
-    final effectiveHeight = widget.height ?? (screenSize.height * 0.2).clamp(120.0, 200.0);
+    final effectiveHeight =
+        widget.height ?? (screenSize.height * 0.2).clamp(120.0, 200.0);
     final effectivePadding =
         widget.padding ??
-        EdgeInsets.symmetric(horizontal: screenSize.width * 0.045, vertical: screenSize.height * 0.015);
-    final effectiveBorderRadius = widget.borderRadius ?? (screenSize.width * 0.04).clamp(12.0, 20.0);
+        EdgeInsets.symmetric(
+          horizontal: screenSize.width * 0.045,
+          vertical: screenSize.height * 0.015,
+        );
+    final effectiveBorderRadius =
+        widget.borderRadius ?? (screenSize.width * 0.04).clamp(12.0, 20.0);
 
     final gaugeTheme = widget.theme ?? const HorizontalGaugeTheme();
-    final backgroundColor = gaugeTheme.backgroundColor ?? theme.colorScheme.surface.withValues(alpha: 0.06);
-    final borderColor = gaugeTheme.borderColor ?? Colors.white.withValues(alpha: 0.02);
+    final backgroundColor =
+        gaugeTheme.backgroundColor ??
+        theme.colorScheme.surface.withValues(alpha: 0.06);
+    final borderColor =
+        gaugeTheme.borderColor ?? Colors.white.withValues(alpha: 0.02);
     final titleColor = gaugeTheme.titleColor ?? Colors.white;
     final valueColor = gaugeTheme.valueColor ?? Colors.white;
-    final unitColor = gaugeTheme.unitColor ?? Colors.white.withValues(alpha: 0.7);
+    final unitColor =
+        gaugeTheme.unitColor ?? Colors.white.withValues(alpha: 0.7);
 
     return Container(
       height: effectiveHeight,
@@ -297,7 +324,10 @@ class _HorizontalGaugeState extends State<HorizontalGauge> {
                 widget.title,
                 style:
                     gaugeTheme.titleStyle ??
-                    TextStyle(fontSize: (screenSize.width * 0.04).clamp(14.0, 18.0), color: titleColor),
+                    TextStyle(
+                      fontSize: (screenSize.width * 0.04).clamp(14.0, 18.0),
+                      color: titleColor,
+                    ),
               ),
           Expanded(
             child: Row(
@@ -306,7 +336,11 @@ class _HorizontalGaugeState extends State<HorizontalGauge> {
                   flex: 2,
                   child: Center(
                     child:
-                        widget.valueBuilder?.call(context, _value, widget.unit) ??
+                        widget.valueBuilder?.call(
+                          context,
+                          _value,
+                          widget.unit,
+                        ) ??
                         RichText(
                           textAlign: TextAlign.center,
                           text: TextSpan(
@@ -316,7 +350,10 @@ class _HorizontalGaugeState extends State<HorizontalGauge> {
                                 style:
                                     gaugeTheme.valueStyle ??
                                     TextStyle(
-                                      fontSize: (screenSize.width * 0.07).clamp(24.0, 32.0),
+                                      fontSize: (screenSize.width * 0.07).clamp(
+                                        24.0,
+                                        32.0,
+                                      ),
                                       fontWeight: FontWeight.w700,
                                       color: valueColor,
                                     ),
@@ -325,7 +362,11 @@ class _HorizontalGaugeState extends State<HorizontalGauge> {
                                 text: ' ${widget.unit}',
                                 style:
                                     gaugeTheme.unitStyle ??
-                                    TextStyle(fontSize: (screenSize.width * 0.035).clamp(12.0, 16.0), color: unitColor),
+                                    TextStyle(
+                                      fontSize: (screenSize.width * 0.035)
+                                          .clamp(12.0, 16.0),
+                                      color: unitColor,
+                                    ),
                               ),
                             ],
                           ),
@@ -336,7 +377,9 @@ class _HorizontalGaugeState extends State<HorizontalGauge> {
                 Expanded(
                   flex: 5,
                   child: Padding(
-                    padding: EdgeInsets.symmetric(horizontal: screenSize.width * 0.03),
+                    padding: EdgeInsets.symmetric(
+                      horizontal: screenSize.width * 0.03,
+                    ),
                     child: ScaleWidget(
                       min: widget.min,
                       max: widget.max,
