@@ -1,24 +1,30 @@
 # Changelog
 
-## [1.0.1] - 2024-06-09
-
-### Updates
-- Update README.
-
-## [1.0.0] - 2024-12-19
+## [2.0.0]
 
 ### Added
-- **Initial release** of horizontal_gauge package
-- **Interactive horizontal gauge widget** with smooth animations
-- **Touch & drag interaction** with smart boundary detection (500ms limit)
-- **Highly customizable themes** with gradient support
-- **Builder patterns** for complete component customization:
-  - Custom title builder with icon support
-  - Custom value display builder
-  - Custom indicator builder
-  - Custom tick marks painter
-- **Responsive design** that adapts to all screen sizes
-- **Performance optimized** rendering
-- **Professional tick system** with configurable marks
-- **Modern Material Design** aesthetics
-- **Type-safe** implementation with comprehensive documentation
+- CircularGauge widget with arc-based design
+- Animated needle indicator and progress arc
+- Tap-to-set functionality (optional)
+- CircularGaugeTheme for customization
+- Custom builders support
+
+### Changed
+- Added circular_gauge.dart export to main library
+- Updated example app with dual tab interface
+
+### Fixed
+- Animation controller memory leaks
+- Color opacity methods for latest Flutter
+
+## [1.0.0]
+
+### Added
+- HorizontalGauge widget
+- Interactive drag and tap controls
+- Theming system with 20+ options
+- Smooth animations and transitions
+- Custom builders for components
+- Gradient support
+- Tick marks and labels
+- Accessibility features

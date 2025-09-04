@@ -1,37 +1,44 @@
 # Horizontal Gauge
 
-A highly customizable and interactive horizontal gauge widget for Flutter applications with advanced theming, builder patterns, and smart boundary detection.
+[![pub package](https://img.shields.io/pub/v/horizontal_gauge.svg)](https://pub.dev/packages/horizontal_gauge)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
-## ✨ Features
+A customizable gauge widget library for Flutter featuring both **horizontal linear gauges** and **circular arc gauges**. Perfect for dashboards, control panels, automotive interfaces, and data visualization applications.
 
-- 📊 **Interactive horizontal gauge** with smooth animations
-- ✏️ **Touch & drag interaction** with smart boundary detection (500ms limit)
-- 🎨 **Highly customizable themes** with gradient support
-- 🔧 **Builder patterns** for complete component customization
-- 📱 **Responsive design** that adapts to all screen sizes
-- ⚡ **Performance optimized** with efficient rendering
-- 🎯 **Professional tick system** with configurable marks
-- 💎 **Modern Material Design** aesthetics
-- 🔒 **Type-safe** with comprehensive documentation
+## 🎯 Features
 
-## 🚀 Quick Start
+### 📏 Horizontal Gauge
+- **Interactive Controls**: Drag and tap to change values
+- **Smooth Animations**: Fluid transitions with boundary detection
+- **Rich Theming**: 20+ customization options
+- **Custom Builders**: Build your own title, value, indicator, and tick widgets
+- **Responsive Design**: Automatic scaling for all screen sizes
+- **Smart Boundaries**: 500ms timeout at min/max values
 
-### Installation
+### 🎡 Circular Gauge
+- **Car Dashboard Style**: Realistic automotive gauge appearance
+- **Arc-based Design**: 180-degree semicircle layout
+- **Animated Needle**: Smooth 800ms transitions with easeInOut curves
+- **Progress Arc**: Colored arc showing current value
+- **Tick Marks**: Major and minor ticks with smart labeling
+- **Read-only Mode**: Perfect for data visualization
+- **Gradient Support**: SweepGradient and LinearGradient options
+
+## 📸 Screenshots
+
+| Horizontal Gauges | Circular Gauges |
+|---|---|
+| Interactive sliders with custom themes | Car dashboard style with live animation |
+| Drag and tap controls | Speedometer, RPM, fuel, temperature |
+
+## 🚀 Getting Started
 
 Add this to your package's `pubspec.yaml` file:
 
 ```yaml
 dependencies:
-  horizontal_gauge: ^1.0.1
+  horizontal_gauge: ^2.0.0
 ```
-
-Then run:
-
-```bash
-flutter pub get
-```
-
-### Basic Usage
 
 Import the package:
 
@@ -39,14 +46,17 @@ Import the package:
 import 'package:horizontal_gauge/horizontal_gauge.dart';
 ```
 
-Simple gauge:
+## 📖 Usage
+
+### Basic Horizontal Gauge
+![Basic Horizontal Gauge](https://raw.githubusercontent.com/SpinexIO/horizontal_gauge/refs/heads/main/github/standart.png)
 
 ```dart
 HorizontalGauge(
   title: 'Temperature',
-  min: 0,
-  max: 100,
-  value: 25,
+  min: 0.0,
+  max: 100.0,
+  value: 65.0,
   unit: '°C',
   color: Colors.blue,
   onChanged: (value) {
@@ -55,16 +65,32 @@ HorizontalGauge(
 )
 ```
 
-## 🎨 Advanced Customization
+### Basic Circular Gauge
+![Basic Circular Gauge](https://raw.githubusercontent.com/SpinexIO/horizontal_gauge/refs/heads/main/github/circular.jpg)
 
-### Theme Customization
+```dart
+CircularGauge(
+  title: 'Speed',
+  min: 0.0,
+  max: 200.0,
+  value: 80.0,
+  unit: 'km/h',
+  color: Colors.blue,
+  size: 250,
+)
+```
+
+## 🎨 Advanced Theming
+
+### Horizontal Gauge Theme
+![Colorful Theme](https://raw.githubusercontent.com/SpinexIO/horizontal_gauge/refs/heads/main/github/colorful.png)
 
 ```dart
 HorizontalGauge(
-  title: 'Battery Level',
-  min: 0,
-  max: 100,
-  value: 85,
+  title: 'Custom Gauge',
+  min: 0.0,
+  max: 100.0,
+  value: 75.0,
   unit: '%',
   color: Colors.green,
   theme: HorizontalGaugeTheme(
@@ -75,49 +101,93 @@ HorizontalGauge(
     indicatorGradient: LinearGradient(
       colors: [Colors.green[400]!, Colors.green[600]!],
     ),
-    backgroundGradient: LinearGradient(
-      begin: Alignment.topLeft,
-      end: Alignment.bottomRight,
-      colors: [Colors.green.withOpacity(0.1), Colors.blue.withOpacity(0.1)],
-    ),
+    indicatorShadows: [
+      BoxShadow(
+        color: Colors.green.withOpacity(0.5),
+        blurRadius: 10,
+        offset: Offset(0, 3),
+      ),
+    ],
   ),
-  onChanged: (value) => setState(() => batteryLevel = value),
+  onChanged: (value) => print(value),
 )
 ```
 
-### Custom Builders
+### Circular Gauge Theme
 
-Create completely custom components:
+```dart
+CircularGauge(
+  title: 'RPM',
+  min: 0.0,
+  max: 8000.0,
+  value: 3500.0,
+  unit: 'rpm',
+  color: Colors.red,
+  size: 200,
+  theme: CircularGaugeTheme(
+    titleColor: Colors.red[300],
+    valueColor: Colors.white,
+    needleColor: Colors.red[400],
+    centerDotColor: Colors.white,
+    progressGradient: LinearGradient(
+      colors: [Colors.orange, Colors.red],
+    ),
+    arcStrokeWidth: 8,
+    progressStrokeWidth: 8,
+    needleWidth: 3,
+  ),
+)
+```
+
+## 🛠 Custom Builders
+
+### Custom Title Builder
+![Custom Builders](https://raw.githubusercontent.com/SpinexIO/horizontal_gauge/refs/heads/main/github/custom.png)
 
 ```dart
 HorizontalGauge(
   title: 'Score',
-  min: 0,
-  max: 1000,
-  value: 850,
+  min: 0.0,
+  max: 100.0,
+  value: 85.0,
   unit: 'pts',
-  color: Colors.amber,
-  
-  // Custom title with icon
+  color: Colors.purple,
   titleBuilder: (context, title, value) {
     return Container(
       padding: EdgeInsets.symmetric(horizontal: 12, vertical: 6),
       decoration: BoxDecoration(
-        gradient: LinearGradient(colors: [Colors.amber.withOpacity(0.3), Colors.orange.withOpacity(0.3)]),
+        gradient: LinearGradient(
+          colors: [Colors.purple.withOpacity(0.3), Colors.blue.withOpacity(0.3)],
+        ),
         borderRadius: BorderRadius.circular(20),
       ),
       child: Row(
         mainAxisSize: MainAxisSize.min,
         children: [
-          Icon(Icons.star, color: Colors.amber, size: 16),
+          Icon(Icons.star, color: Colors.purple, size: 16),
           SizedBox(width: 8),
-          Text('$title (${value.round()})', style: TextStyle(color: Colors.amber, fontWeight: FontWeight.bold)),
+          Text(
+            '$title (${value.round()})',
+            style: TextStyle(color: Colors.purple, fontWeight: FontWeight.bold),
+          ),
         ],
       ),
     );
   },
-  
-  // Custom value display
+  onChanged: (value) => print(value),
+)
+```
+
+### Custom Value Builder
+
+```dart
+CircularGauge(
+  title: 'Fuel',
+  min: 0.0,
+  max: 100.0,
+  value: 60.0,
+  unit: '%',
+  color: Colors.green,
   valueBuilder: (context, value, unit) {
     return Column(
       mainAxisAlignment: MainAxisAlignment.center,
@@ -126,383 +196,183 @@ HorizontalGauge(
           padding: EdgeInsets.all(12),
           decoration: BoxDecoration(
             shape: BoxShape.circle,
-            gradient: RadialGradient(colors: [Colors.amber.withOpacity(0.3), Colors.orange.withOpacity(0.1)]),
-            border: Border.all(color: Colors.amber, width: 2),
+            gradient: RadialGradient(
+              colors: [Colors.green.withOpacity(0.3), Colors.green.withOpacity(0.1)],
+            ),
+            border: Border.all(color: Colors.green, width: 2),
           ),
-          child: Text(value.round().toString(), style: TextStyle(fontSize: 24, fontWeight: FontWeight.w900, color: Colors.amber)),
+          child: Text(
+            value.round().toString(),
+            style: TextStyle(fontSize: 24, fontWeight: FontWeight.w900, color: Colors.green),
+          ),
         ),
         SizedBox(height: 4),
-        Text(unit, style: TextStyle(fontSize: 12, color: Colors.amber.withOpacity(0.8))),
+        Text(unit, style: TextStyle(fontSize: 12, color: Colors.green.withOpacity(0.8))),
       ],
     );
   },
-  
-  // Custom indicator
-  indicatorBuilder: (context, value, min, max, color) {
-    return Container(
-      width: 20,
-      height: 40,
-      decoration: BoxDecoration(
-        color: Colors.amber,
-        borderRadius: BorderRadius.circular(10),
-        boxShadow: [BoxShadow(color: Colors.amber.withOpacity(0.6), blurRadius: 8, spreadRadius: 2)],
+)
+```
+
+## 🎮 Interactive vs Read-only
+
+### Interactive Horizontal Gauge
+```dart
+HorizontalGauge(
+  title: 'Volume',
+  min: 0.0,
+  max: 100.0,
+  value: currentVolume,
+  unit: '%',
+  color: Colors.blue,
+  onChanged: (value) {
+    setState(() {
+      currentVolume = value;
+    });
+  }, // User can drag/tap to change
+)
+```
+
+### Read-only Circular Gauge
+```dart
+CircularGauge(
+  title: 'Speed',
+  min: 0.0,
+  max: 200.0,
+  value: currentSpeed,
+  unit: 'km/h',
+  color: Colors.blue,
+  // No onChanged - read-only display
+)
+```
+
+## 🚗 Automotive Dashboard Example
+
+```dart
+Column(
+  children: [
+    // Main speedometer
+    CircularGauge(
+      title: 'Speed',
+      min: 0.0,
+      max: 200.0,
+      value: 120.0,
+      unit: 'km/h',
+      color: Colors.blue,
+      size: 280,
+      theme: CircularGaugeTheme(
+        progressGradient: SweepGradient(
+          colors: [Colors.green, Colors.yellow, Colors.orange, Colors.red],
+          stops: [0.0, 0.4, 0.7, 1.0],
+        ),
+        needleWidth: 5,
+        centerDotRadius: 12,
       ),
-      child: Icon(Icons.arrow_drop_down, color: Colors.white, size: 16),
-    );
-  },
-  
-  onChanged: (value) => setState(() => score = value),
+    ),
+    
+    // Secondary gauges
+    Row(
+      children: [
+        Expanded(
+          child: CircularGauge(
+            title: 'Fuel',
+            min: 0.0,
+            max: 100.0,
+            value: 75.0,
+            unit: '%',
+            color: Colors.green,
+            size: 150,
+          ),
+        ),
+        Expanded(
+          child: CircularGauge(
+            title: 'RPM',
+            min: 0.0,
+            max: 8000.0,
+            value: 3500.0,
+            unit: 'rpm',
+            color: Colors.red,
+            size: 150,
+          ),
+        ),
+      ],
+    ),
+  ],
 )
 ```
 
 ## 📋 API Reference
 
-### Core Parameters
+### HorizontalGauge Parameters
 
-| Parameter | Type | Description | Default |
-|-----------|------|-------------|---------|
-| `title` | `String` | The title displayed above the gauge | Required |
-| `min` | `double` | Minimum value of the gauge | Required |
-| `max` | `double` | Maximum value of the gauge | Required |
-| `value` | `double` | Current value of the gauge | Required |
-| `unit` | `String` | Unit text displayed with the value | Required |
-| `color` | `Color` | Primary color of the gauge | Required |
-| `onChanged` | `ValueChanged<double>?` | Callback when value changes | `null` |
+| Parameter | Type | Default | Description |
+|---|---|---|---|
+| `title` | `String` | required | Title text displayed above the gauge |
+| `min` | `double` | required | Minimum value |
+| `max` | `double` | required | Maximum value |
+| `value` | `double` | required | Current value |
+| `unit` | `String` | required | Unit text (e.g., 'kg', '°C', '%') |
+| `color` | `Color` | required | Primary color for the gauge |
+| `onChanged` | `ValueChanged<double>?` | null | Callback when value changes |
+| `height` | `double?` | auto | Custom height override |
+| `padding` | `EdgeInsetsGeometry?` | auto | Custom padding |
+| `borderRadius` | `double?` | auto | Border radius |
+| `theme` | `HorizontalGaugeTheme?` | null | Custom theme |
+| `showTicks` | `bool` | true | Show tick marks |
+| `showLabels` | `bool` | true | Show min/mid/max labels |
+| `customTickCount` | `int?` | 41 | Number of tick marks |
 
-### Layout & Styling
+### CircularGauge Parameters
 
-| Parameter | Type | Description | Default |
-|-----------|------|-------------|---------|
-| `height` | `double?` | Height of the gauge widget | Auto-calculated |
-| `padding` | `EdgeInsetsGeometry?` | Internal padding | Auto-calculated |
-| `borderRadius` | `double?` | Border radius of the container | Auto-calculated |
-| `theme` | `HorizontalGaugeTheme?` | Complete theme configuration | `null` |
+| Parameter | Type | Default | Description |
+|---|---|---|---|
+| `title` | `String` | required | Title text displayed above the gauge |
+| `min` | `double` | required | Minimum value |
+| `max` | `double` | required | Maximum value |
+| `value` | `double` | required | Current value |
+| `unit` | `String` | required | Unit text |
+| `color` | `Color` | required | Primary color |
+| `onChanged` | `ValueChanged<double>?` | null | Callback (null = read-only) |
+| `size` | `double?` | auto | Gauge diameter |
+| `padding` | `EdgeInsetsGeometry?` | 16.0 | Container padding |
+| `theme` | `CircularGaugeTheme?` | null | Custom theme |
+| `showTicks` | `bool` | true | Show tick marks |
+| `showLabels` | `bool` | true | Show min/max labels |
+| `showProgressArc` | `bool` | true | Show colored progress arc |
 
-### Display Options
+## 🎨 Theme Properties
 
-| Parameter | Type | Description | Default |
-|-----------|------|-------------|---------|
-| `showTicks` | `bool` | Show/hide tick marks | `true` |
-| `showLabels` | `bool` | Show/hide value labels | `true` |
-| `customTickCount` | `int?` | Custom number of tick marks | `41` |
+### HorizontalGaugeTheme
+- **Colors**: `backgroundColor`, `borderColor`, `titleColor`, `valueColor`, `unitColor`, `tickColor`, `majorTickColor`, `labelColor`, `indicatorColor`
+- **Text Styles**: `titleStyle`, `valueStyle`, `unitStyle`, `labelStyle`
+- **Dimensions**: `indicatorWidth`, `indicatorHeight`, `tickHeight`, `majorTickHeight`
+- **Effects**: `indicatorBorderRadius`, `indicatorShadows`, `backgroundGradient`, `indicatorGradient`
 
-### Builder Functions
+### CircularGaugeTheme
+- **Colors**: `titleColor`, `valueColor`, `unitColor`, `tickColor`, `majorTickColor`, `labelColor`, `needleColor`, `centerDotColor`, `arcColor`, `progressColor`
+- **Text Styles**: `titleStyle`, `valueStyle`, `unitStyle`, `labelStyle`
+- **Dimensions**: `needleWidth`, `centerDotRadius`, `arcStrokeWidth`, `progressStrokeWidth`
+- **Effects**: `backgroundGradient`, `needleGradient`, `progressGradient`
 
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `titleBuilder` | `TitleBuilder?` | Custom title widget builder |
-| `valueBuilder` | `ValueBuilder?` | Custom value display builder |
-| `indicatorBuilder` | `IndicatorBuilder?` | Custom indicator widget builder |
-| `tickBuilder` | `TickBuilder?` | Custom tick marks painter |
+## 🔧 Requirements
 
-### HorizontalGaugeTheme Properties
-
-| Property | Type | Description |
-|----------|------|-------------|
-| `backgroundColor` | `Color?` | Background color |
-| `borderColor` | `Color?` | Border color |
-| `titleColor` | `Color?` | Title text color |
-| `valueColor` | `Color?` | Value text color |
-| `unitColor` | `Color?` | Unit text color |
-| `tickColor` | `Color?` | Minor tick color |
-| `majorTickColor` | `Color?` | Major tick color |
-| `labelColor` | `Color?` | Label text color |
-| `indicatorColor` | `Color?` | Indicator color |
-| `indicatorShadowColor` | `Color?` | Indicator shadow color |
-| `backgroundGradient` | `Gradient?` | Background gradient |
-| `indicatorGradient` | `Gradient?` | Indicator gradient |
-| `titleStyle` | `TextStyle?` | Title text style |
-| `valueStyle` | `TextStyle?` | Value text style |
-| `unitStyle` | `TextStyle?` | Unit text style |
-| `labelStyle` | `TextStyle?` | Label text style |
-| `indicatorWidth` | `double?` | Indicator width |
-| `indicatorHeight` | `double?` | Indicator height |
-| `tickHeight` | `double?` | Minor tick height |
-| `majorTickHeight` | `double?` | Major tick height |
-| `indicatorBorderRadius` | `BorderRadius?` | Indicator border radius |
-| `indicatorShadows` | `List<BoxShadow>?` | Indicator shadows |
-
-## 🎯 Key Features Explained
-
-### Smart Boundary Detection
-The gauge includes intelligent boundary detection that automatically stops dragging when the user reaches min/max values and holds for 500ms, providing intuitive user experience.
-
-### Builder Pattern Architecture
-Complete customization through builder functions:
-- **TitleBuilder**: `(BuildContext context, String title, double value) → Widget`
-- **ValueBuilder**: `(BuildContext context, double value, String unit) → Widget`
-- **IndicatorBuilder**: `(BuildContext context, double value, double min, double max, Color color) → Widget`
-- **TickBuilder**: `(Canvas canvas, Size size, double min, double max, double value, Size screenSize) → void`
-
-### Responsive Design
-All dimensions automatically adapt to screen size:
-- Auto-scaling fonts and spacing
-- Device-appropriate tick marks
-- Optimized touch targets
-- Consistent appearance across devices
-
-## 🔧 Examples Gallery
-
-### Standard Usage
-![Standard Gauge](https://raw.githubusercontent.com/SpinexIO/horizontal_gauge/refs/heads/main/github/standart.png)
-
-```dart
-HorizontalGauge(
-  title: 'Weight Goal',
-  min: 40.0,
-  max: 120.0,
-  value: 65.0,
-  unit: 'kg',
-  color: Colors.blue,
-  onChanged: (value) {
-    setState(() {
-      weightValue = value;
-    });
-  },
-)
-```
-
-### Colorful Theme
-![Colorful Theme](https://raw.githubusercontent.com/SpinexIO/horizontal_gauge/refs/heads/main/github/colorful.png)
-
-```dart
-HorizontalGauge(
-  title: 'Height',
-  min: 140.0,
-  max: 200.0,
-  value: 175.0,
-  unit: 'cm',
-  color: Colors.green,
-  theme: HorizontalGaugeTheme(
-    backgroundColor: Colors.green.withOpacity(0.1),
-    borderColor: Colors.green.withOpacity(0.3),
-    titleColor: Colors.green[300],
-    valueColor: Colors.green[100],
-    unitColor: Colors.green[200],
-    indicatorGradient: LinearGradient(
-      colors: [Colors.green[400]!, Colors.green[600]!],
-    ),
-    indicatorShadows: [
-      BoxShadow(
-        color: Colors.green.withOpacity(0.5),
-        blurRadius: 10,
-        offset: const Offset(0, 3),
-      ),
-    ],
-  ),
-  onChanged: (value) {
-    setState(() {
-      heightValue = value;
-    });
-  },
-)
-```
-
-### Custom Builders
-![Custom Builders](https://raw.githubusercontent.com/SpinexIO/horizontal_gauge/refs/heads/main/github/custom.png)
-
-```dart
-// Custom Title Builder
-HorizontalGauge(
-  title: 'Custom Title',
-  min: 0.0,
-  max: 100.0,
-  value: 75.0,
-  unit: 'pts',
-  color: Colors.cyan,
-  height: 120,
-  titleBuilder: (context, title, value) {
-    return Container(
-      padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
-      decoration: BoxDecoration(
-        gradient: LinearGradient(
-          colors: [Colors.cyan.withOpacity(0.3), Colors.blue.withOpacity(0.3)],
-        ),
-        borderRadius: BorderRadius.circular(20),
-      ),
-      child: Row(
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          Icon(Icons.star, color: Colors.cyan, size: 16),
-          const SizedBox(width: 8),
-          Text(
-            '$title (${value.round()})',
-            style: const TextStyle(
-              color: Colors.cyan,
-              fontWeight: FontWeight.bold,
-              fontSize: 16,
-            ),
-          ),
-        ],
-      ),
-    );
-  },
-  onChanged: null, // Read-only
-)
-
-// Custom Value Builder
-HorizontalGauge(
-  title: 'Score',
-  min: 0.0,
-  max: 1000.0,
-  value: 850.0,
-  unit: 'pts',
-  color: Colors.amber,
-  height: 150,
-  valueBuilder: (context, value, unit) {
-    return Column(
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: [
-        Container(
-          padding: const EdgeInsets.all(12),
-          decoration: BoxDecoration(
-            shape: BoxShape.circle,
-            gradient: RadialGradient(
-              colors: [
-                Colors.amber.withOpacity(0.3),
-                Colors.orange.withOpacity(0.1),
-              ],
-            ),
-            border: Border.all(color: Colors.amber, width: 2),
-          ),
-          child: Text(
-            value.round().toString(),
-            style: const TextStyle(
-              fontSize: 24,
-              fontWeight: FontWeight.w900,
-              color: Colors.amber,
-            ),
-          ),
-        ),
-        const SizedBox(height: 4),
-        Text(
-          unit,
-          style: TextStyle(
-            fontSize: 12,
-            color: Colors.amber.withOpacity(0.8),
-          ),
-        ),
-      ],
-    );
-  },
-  onChanged: null, // Read-only
-)
-
-// Custom Indicator Builder
-HorizontalGauge(
-  title: 'Progress',
-  min: 0.0,
-  max: 100.0,
-  value: 60.0,
-  unit: '%',
-  color: Colors.teal,
-  height: 120,
-  indicatorBuilder: (context, value, min, max, color) {
-    return Container(
-      width: 20,
-      height: 40,
-      decoration: BoxDecoration(
-        color: Colors.teal,
-        borderRadius: BorderRadius.circular(10),
-        boxShadow: [
-          BoxShadow(
-            color: Colors.teal.withOpacity(0.6),
-            blurRadius: 8,
-            spreadRadius: 2,
-          ),
-        ],
-      ),
-      child: const Icon(
-        Icons.arrow_drop_down,
-        color: Colors.white,
-        size: 16,
-      ),
-    );
-  },
-  onChanged: null, // Read-only
-)
-```
-
-### Quick Examples
-
-### Minimal Setup
-```dart
-HorizontalGauge(
-  title: 'Volume',
-  min: 0, max: 100, value: 75,
-  unit: '%', color: Colors.blue,
-  onChanged: (v) => print(v),
-)
-```
-
-### With Custom Theme
-```dart
-HorizontalGauge(
-  title: 'Progress',
-  min: 0, max: 100, value: 60,
-  unit: '%', color: Colors.green,
-  theme: HorizontalGaugeTheme(
-    backgroundGradient: LinearGradient(colors: [Colors.green.shade100, Colors.blue.shade100]),
-    indicatorGradient: LinearGradient(colors: [Colors.green.shade400, Colors.green.shade600]),
-    titleStyle: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
-  ),
-)
-```
-
-### Read-Only Display
-```dart
-HorizontalGauge(
-  title: 'CPU Usage',
-  min: 0, max: 100, value: 45,
-  unit: '%', color: Colors.orange,
-  onChanged: null, // Makes it read-only
-)
-```
-
-### Custom Tick Configuration
-```dart
-HorizontalGauge(
-  title: 'Speed',
-  min: 0, max: 200, value: 120,
-  unit: 'km/h', color: Colors.red,
-  customTickCount: 21, // Custom tick count
-  showLabels: false,   // Hide labels
-)
-```
+- Flutter SDK: >=3.0.0
+- Dart SDK: >=3.0.0
 
 ## 🤝 Contributing
 
-We welcome contributions! Here's how you can help:
-
-1. **Fork** the repository
-2. **Create** a feature branch (`git checkout -b feature/amazing-feature`)
-3. **Commit** your changes (`git commit -m 'Add amazing feature'`)
-4. **Push** to the branch (`git push origin feature/amazing-feature`)
-5. **Open** a Pull Request
-
-### Development Setup
-```bash
-git clone https://github.com/SpinexIO/horizontal_gauge.git
-cd horizontal_gauge
-flutter pub get
-cd example
-flutter run
-```
+Contributions are welcome! Please feel free to submit a Pull Request.
 
 ## 📄 License
 
 This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
 
-## 🆘 Support & Community
+## 🔗 Links
 
-- 📖 [Documentation](https://github.com/SpinexIO/horizontal_gauge/wiki)
-- 🐛 [Issue Tracker](https://github.com/SpinexIO/horizontal_gauge/issues)
-- ⭐ [GitHub Repository](https://github.com/SpinexIO/horizontal_gauge)
+- [pub.dev package](https://pub.dev/packages/horizontal_gauge)
+- [GitHub repository](https://github.com/yourusername/horizontal_gauge)
+- [API documentation](https://pub.dev/documentation/horizontal_gauge/latest/)
+- [Example app](https://github.com/yourusername/horizontal_gauge/tree/main/example)
 
-<div align="center">
-
-**Made with ❤️ for the Flutter community**
-
-If this package helped you, please consider giving it a ⭐ on GitHub!
-
-</div>
+---
+Made with ❤️ by [SpinexIO](https://spinex.io) for the Flutter Community.

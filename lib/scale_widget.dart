@@ -90,13 +90,11 @@ class ScaleWidgetState extends State<ScaleWidget> {
     widget.onChanged(clampedValue);
   }
 
-  // Handles drag end events on the scale.
   void _handleDragEnd(DragEndDetails details) {
     _isDragging = false;
     _boundaryReachedTime = null;
   }
 
-  // Handles tap down events on the scale.
   void _handleTapDown(TapDownDetails details, BoxConstraints constraints) {
     final localDx = details.localPosition.dx;
     final fraction = (localDx / constraints.maxWidth).clamp(0.0, 1.0);
@@ -117,7 +115,7 @@ class ScaleWidgetState extends State<ScaleWidget> {
     final indicatorHeight = gaugeTheme.indicatorHeight ?? (screenSize.height * 0.055).clamp(35.0, 50.0);
 
     final indicatorColor = gaugeTheme.indicatorColor ?? widget.color;
-    final shadowColor = gaugeTheme.indicatorShadowColor ?? widget.color.withValues(alpha: 0.35);
+    final shadowColor = gaugeTheme.indicatorShadowColor ?? widget.color.withValues(alpha:0.35);
 
     return LayoutBuilder(
       builder: (context, constraints) {
